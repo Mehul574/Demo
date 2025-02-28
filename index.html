@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Countdown Timer</title>
+</head>
+<body>
+
+<h1>Countdown Timer</h1>
+<div id="timer">10</div>
+<button id="startBtn">Start Timer</button>
+<button id="pauseBtn">Pause Timer</button>
+<button id="resumeBtn">Resume Timer</button>
+
+<script>
+let timerDisplay = document.getElementById("timer");
+let startBtn = document.getElementById("startBtn");
+let pauseBtn = document.getElementById("pauseBtn");
+let resumeBtn = document.getElementById("resumeBtn");
+
+let timeLeft = 10;
+let timerInterval;
+
+function updateTimerDisplay() {
+  timerDisplay.textContent = timeLeft;
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+    if (timeLeft < 0) {
+      clearInterval(timerInterval);
+      alert("Countdown Finished!");
+    }
+  }, 1000);
+  
+  // Disable the Start button to prevent multiple starts
+  startBtn.disabled = true;
+}
+
+function pauseTimer() {
+  clearInterval(timerInterval);
+  // Enable the Start button to allow restarting from the current time
+  startBtn.disabled = false;
+}
+
+function resumeTimer() {
+  startTimer(); // Reuse the startTimer function to resume
+}
+
+startBtn.addEventListener("click", startTimer);
+pauseBtn.addEventListener("click", pauseTimer);
+resumeBtn.addEventListener("click", resumeTimer);
+
+updateTimerDisplay(); // Initial display
+
+</script>
+
+</body>
+</html>
